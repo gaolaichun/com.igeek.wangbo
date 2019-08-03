@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sm.dao.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.sm.model.Order">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
+    <result column="coupon" jdbcType="INTEGER" property="coupon" />
+    <result column="red_package" jdbcType="INTEGER" property="redPackage" />
+    <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
+    <result column="sid" jdbcType="INTEGER" property="sid" />
+    <result column="order_status" jdbcType="INTEGER" property="orderStatus" />
+    <result column="participants" jdbcType="VARCHAR" property="participants" />
+    <result column="package_id" jdbcType="INTEGER" property="packageId" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="party_id" jdbcType="INTEGER" property="partyId" />
+    <result column="party_time" jdbcType="TIMESTAMP" property="partyTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, order_no, uid, price, order_time, coupon, red_package, pay_time, sid, order_status, 
+    participants, package_id, note, party_id, party_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.sm.model.Order">
+    insert into order (id, order_no, uid, 
+      price, order_time, coupon, 
+      red_package, pay_time, sid, 
+      order_status, participants, package_id, 
+      note, party_id, party_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{orderNo,jdbcType=VARCHAR}, #{uid,jdbcType=INTEGER}, 
+      #{price,jdbcType=DOUBLE}, #{orderTime,jdbcType=TIMESTAMP}, #{coupon,jdbcType=INTEGER}, 
+      #{redPackage,jdbcType=INTEGER}, #{payTime,jdbcType=TIMESTAMP}, #{sid,jdbcType=INTEGER}, 
+      #{orderStatus,jdbcType=INTEGER}, #{participants,jdbcType=VARCHAR}, #{packageId,jdbcType=INTEGER}, 
+      #{note,jdbcType=VARCHAR}, #{partyId,jdbcType=INTEGER}, #{partyTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sm.model.Order">
+    insert into order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="orderTime != null">
+        order_time,
+      </if>
+      <if test="coupon != null">
+        coupon,
+      </if>
+      <if test="redPackage != null">
+        red_package,
+      </if>
+      <if test="payTime != null">
+        pay_time,
+      </if>
+      <if test="sid != null">
+        sid,
+      </if>
+      <if test="orderStatus != null">
+        order_status,
+      </if>
+      <if test="participants != null">
+        participants,
+      </if>
+      <if test="packageId != null">
+        package_id,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+      <if test="partyId != null">
+        party_id,
+      </if>
+      <if test="partyTime != null">
+        party_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="orderTime != null">
+        #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="coupon != null">
+        #{coupon,jdbcType=INTEGER},
+      </if>
+      <if test="redPackage != null">
+        #{redPackage,jdbcType=INTEGER},
+      </if>
+      <if test="payTime != null">
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sid != null">
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="orderStatus != null">
+        #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="participants != null">
+        #{participants,jdbcType=VARCHAR},
+      </if>
+      <if test="packageId != null">
+        #{packageId,jdbcType=INTEGER},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="partyId != null">
+        #{partyId,jdbcType=INTEGER},
+      </if>
+      <if test="partyTime != null">
+        #{partyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sm.model.Order">
+    update order
+    <set>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="orderTime != null">
+        order_time = #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="coupon != null">
+        coupon = #{coupon,jdbcType=INTEGER},
+      </if>
+      <if test="redPackage != null">
+        red_package = #{redPackage,jdbcType=INTEGER},
+      </if>
+      <if test="payTime != null">
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sid != null">
+        sid = #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="orderStatus != null">
+        order_status = #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="participants != null">
+        participants = #{participants,jdbcType=VARCHAR},
+      </if>
+      <if test="packageId != null">
+        package_id = #{packageId,jdbcType=INTEGER},
+      </if>
+      <if test="note != null">
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="partyId != null">
+        party_id = #{partyId,jdbcType=INTEGER},
+      </if>
+      <if test="partyTime != null">
+        party_time = #{partyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sm.model.Order">
+    update order
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      uid = #{uid,jdbcType=INTEGER},
+      price = #{price,jdbcType=DOUBLE},
+      order_time = #{orderTime,jdbcType=TIMESTAMP},
+      coupon = #{coupon,jdbcType=INTEGER},
+      red_package = #{redPackage,jdbcType=INTEGER},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      sid = #{sid,jdbcType=INTEGER},
+      order_status = #{orderStatus,jdbcType=INTEGER},
+      participants = #{participants,jdbcType=VARCHAR},
+      package_id = #{packageId,jdbcType=INTEGER},
+      note = #{note,jdbcType=VARCHAR},
+      party_id = #{partyId,jdbcType=INTEGER},
+      party_time = #{partyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="todayOrder" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from `order` where sid=#{sid,jdbcType=INTEGER} and order_status={orderStatus,jdbcType=INTEGER} and TO_DAYS(NOW())-TO_DAYS(pay_time) &lt; 1
+  </select>
+  
+  <select id="seventOrder" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from `order` where sid=#{sid,jdbcType=INTEGER} and order_status={orderStatus,jdbcType=INTEGER} and  date_sub(CURDATE(),INTERVAL 7 DAY) &lt;= DATE(pay_time)
+  </select>
+  
+  <select id="yesterOrder" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from `order` where sid=#{sid,jdbcType=INTEGER} and order_status={orderStatus,jdbcType=INTEGER} and TO_DAYS(NOW())-TO_DAYS(pay_time)=1
+  </select>
+  
+  <resultMap id="BaseResultExample" type="com.sm.model.Order">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
+    <result column="coupon" jdbcType="INTEGER" property="coupon" />
+    <result column="red_package" jdbcType="INTEGER" property="redPackage" />
+    <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
+    <result column="sid" jdbcType="INTEGER" property="sid" />
+    <result column="order_status" jdbcType="INTEGER" property="orderStatus" />
+    <result column="participants" jdbcType="VARCHAR" property="participants" />
+    <result column="package_id" jdbcType="INTEGER" property="packageId" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="party_id" jdbcType="INTEGER" property="partyId" />
+    <result column="party_time" jdbcType="TIMESTAMP" property="partyTime" />
+     <collection column="id" ofType="com.sm.model.User" property="user">
+       <id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="phone" jdbcType="VARCHAR" property="phone" />
+	    <result column="password" jdbcType="VARCHAR" property="password" />
+	    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+	    <result column="birth" jdbcType="VARCHAR" property="birth" />
+	    <result column="age" jdbcType="INTEGER" property="age" />
+	    <result column="sex" jdbcType="INTEGER" property="sex" />
+     </collection>
+     <collection column="package_id" ofType="com.sm.model.PackageDetail" property="packageDetailList">
+       <id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="package_id" jdbcType="INTEGER" property="packageId" />
+	    <result column="dish_name" jdbcType="VARCHAR" property="dishName" />
+	    <result column="number" jdbcType="VARCHAR" property="number" />
+	    <result column="price" jdbcType="DOUBLE" property="price" />
+	    <result column=" goods_sort" jdbcType="INTEGER" property="goodsSort" />
+     </collection>
+     <collection column="id" ofType="com.sm.model.Party" property="party">
+       <id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="pid" jdbcType="INTEGER" property="pid" />
+	    <result column="uid" jdbcType="INTEGER" property="uid" />
+	    <result column="sid" jdbcType="INTEGER" property="sid" />
+	    <result column="model" jdbcType="VARCHAR" property="model" />
+	    <result column="agreed_time" jdbcType="VARCHAR" property="agreedTime" />
+	    <result column="limit_person" jdbcType="VARCHAR" property="limitPerson" />
+	    <result column="limit_sex" jdbcType="VARCHAR" property="limitSex" />
+	    <result column="limit_age" jdbcType="VARCHAR" property="limitAge" />
+	    <result column="trust" jdbcType="VARCHAR" property="trust" />
+	    <result column="all_uid" jdbcType="VARCHAR" property="allUid" />
+	    <result column="price" jdbcType="DOUBLE" property="price" />
+	    <result column="party_instruction" jdbcType="VARCHAR" property="partyInstruction" />
+	    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+     </collection>  
+  </resultMap>
+  
+  <select id="merchantOrder" parameterType="com.sm.model.Order" resultMap="BaseResultExample">
+    SELECT
+	*
+	FROM
+		`order` o1
+	LEFT JOIN `user` u1 ON o1.uid = u1.id
+	LEFT JOIN package_detail pd ON pd.package_id = o1.package_id
+	LEFT JOIN party p1 ON p1.id = o1.pid
+	where 1=1
+	<if test="payTime==null and payTime != ''">
+	and to_days(#{payTime,jdbcType=TIMESTAMP})= to_days(now())
+	</if>
+    <if test="orderStatus != null and orderStatus != ''">
+    and o1.order_status=#{orderStatus,jdbcType=INTEGER}
+    </if>
+    <if test="sid != null and sid != ''">
+    and o1.sid=#{sid,jdbcType=INTEGER}
+    </if>
+    order by o1.order_status asc
+  </select>
+  
+  <select id="searchOrder" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from `order` where 1=1
+    <if test="orderNo != null and orderNo != ''">
+    and order_no=#{orderNo,jdbcType=VARCHAR}
+    </if>
+  </select>
+  
+  
+  
+  
+  
+  <select id="selectNumberByOneDay" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+	select count(*) from `order` 
+	where 
+	package_id = #{packageId,jdbcType=INTEGER} 
+	and 
+	order_status = 1 
+	and 
+	TO_DAYS(NOW())-TO_DAYS(party_time)=1;
+  </select>
+  
+  <select id="selectNumberByWeek" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+	select count(*) from `order` 
+	where 
+	package_id = #{packageId,jdbcType=INTEGER} 
+	and
+	order_status = 1 
+	and 
+	date_sub(CURDATE(),INTERVAL ${times}  DAY) &lt;= DATE(party_time);
+  </select>
+  
+  <select id="selectNumberByTimeInterval" parameterType="java.lang.String" resultType="java.lang.Integer">
+	select count(*) FROM `order` 
+	where 
+	package_id = #{packageId,jdbcType=INTEGER} 
+	and
+	order_status = 1 
+	and 
+	party_time between '${startTime}' and '${endTime}';
+  </select>
+  
+  
+  
+  
+</mapper>

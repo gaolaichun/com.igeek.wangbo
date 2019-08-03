@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sm.dao.PartyMapper">
+  <resultMap id="BaseResultMap" type="com.sm.model.Party">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="sid" jdbcType="INTEGER" property="sid" />
+    <result column="model" jdbcType="VARCHAR" property="model" />
+    <result column="agreed_time" jdbcType="VARCHAR" property="agreedTime" />
+    <result column="limit_person" jdbcType="VARCHAR" property="limitPerson" />
+    <result column="limit_sex" jdbcType="VARCHAR" property="limitSex" />
+    <result column="limit_age" jdbcType="VARCHAR" property="limitAge" />
+    <result column="trust" jdbcType="VARCHAR" property="trust" />
+    <result column="all_uid" jdbcType="VARCHAR" property="allUid" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="party_instruction" jdbcType="VARCHAR" property="partyInstruction" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, pid, uid, sid, model, agreed_time, limit_person, limit_sex, limit_age, trust, 
+    all_uid, price, party_instruction, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from party
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from party
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.sm.model.Party">
+    insert into party (id, pid, uid, 
+      sid, model, agreed_time, 
+      limit_person, limit_sex, limit_age, 
+      trust, all_uid, price, 
+      party_instruction, create_time)
+    values (#{id,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, 
+      #{sid,jdbcType=INTEGER}, #{model,jdbcType=VARCHAR}, #{agreedTime,jdbcType=VARCHAR}, 
+      #{limitPerson,jdbcType=VARCHAR}, #{limitSex,jdbcType=VARCHAR}, #{limitAge,jdbcType=VARCHAR}, 
+      #{trust,jdbcType=VARCHAR}, #{allUid,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, 
+      #{partyInstruction,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sm.model.Party">
+    insert into party
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="sid != null">
+        sid,
+      </if>
+      <if test="model != null">
+        model,
+      </if>
+      <if test="agreedTime != null">
+        agreed_time,
+      </if>
+      <if test="limitPerson != null">
+        limit_person,
+      </if>
+      <if test="limitSex != null">
+        limit_sex,
+      </if>
+      <if test="limitAge != null">
+        limit_age,
+      </if>
+      <if test="trust != null">
+        trust,
+      </if>
+      <if test="allUid != null">
+        all_uid,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="partyInstruction != null">
+        party_instruction,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="sid != null">
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="model != null">
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="agreedTime != null">
+        #{agreedTime,jdbcType=VARCHAR},
+      </if>
+      <if test="limitPerson != null">
+        #{limitPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="limitSex != null">
+        #{limitSex,jdbcType=VARCHAR},
+      </if>
+      <if test="limitAge != null">
+        #{limitAge,jdbcType=VARCHAR},
+      </if>
+      <if test="trust != null">
+        #{trust,jdbcType=VARCHAR},
+      </if>
+      <if test="allUid != null">
+        #{allUid,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="partyInstruction != null">
+        #{partyInstruction,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sm.model.Party">
+    update party
+    <set>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="sid != null">
+        sid = #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="model != null">
+        model = #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="agreedTime != null">
+        agreed_time = #{agreedTime,jdbcType=VARCHAR},
+      </if>
+      <if test="limitPerson != null">
+        limit_person = #{limitPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="limitSex != null">
+        limit_sex = #{limitSex,jdbcType=VARCHAR},
+      </if>
+      <if test="limitAge != null">
+        limit_age = #{limitAge,jdbcType=VARCHAR},
+      </if>
+      <if test="trust != null">
+        trust = #{trust,jdbcType=VARCHAR},
+      </if>
+      <if test="allUid != null">
+        all_uid = #{allUid,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="partyInstruction != null">
+        party_instruction = #{partyInstruction,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sm.model.Party">
+    update party
+    set pid = #{pid,jdbcType=INTEGER},
+      uid = #{uid,jdbcType=INTEGER},
+      sid = #{sid,jdbcType=INTEGER},
+      model = #{model,jdbcType=VARCHAR},
+      agreed_time = #{agreedTime,jdbcType=VARCHAR},
+      limit_person = #{limitPerson,jdbcType=VARCHAR},
+      limit_sex = #{limitSex,jdbcType=VARCHAR},
+      limit_age = #{limitAge,jdbcType=VARCHAR},
+      trust = #{trust,jdbcType=VARCHAR},
+      all_uid = #{allUid,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE},
+      party_instruction = #{partyInstruction,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+ 
+</mapper>

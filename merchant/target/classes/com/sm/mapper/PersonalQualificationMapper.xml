@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sm.dao.PersonalQualificationMapper" >
+  <resultMap id="BaseResultMap" type="com.sm.model.PersonalQualification" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="certificate_type" property="certificateType" jdbcType="VARCHAR" />
+    <result column="realname" property="realname" jdbcType="VARCHAR" />
+    <result column="certificate_no" property="certificateNo" jdbcType="VARCHAR" />
+    <result column="certification_status" property="certificationStatus" jdbcType="INTEGER" />
+    <result column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="idcard_picone" property="idcardPicone" jdbcType="VARCHAR" />
+    <result column="idcard_pictwo" property="idcardPictwo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, certificate_type, realname, certificate_no, certification_status, sid, idcard_picone, 
+    idcard_pictwo
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sm.model.PersonalQualificationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from personal_qualification
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from personal_qualification
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
+  <select id="selectPerStatus" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    certification_status
+    from personal_qualification
+    where sid = #{sid,jdbcType=INTEGER}
+  </select> 
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from personal_qualification
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sm.model.PersonalQualificationExample" >
+    delete from personal_qualification
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sm.model.PersonalQualification" >
+    insert into personal_qualification (id, certificate_type, realname, 
+      certificate_no, certification_status, sid, 
+      idcard_picone, idcard_pictwo)
+    values (#{id,jdbcType=INTEGER}, #{certificateType,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, 
+      #{certificateNo,jdbcType=VARCHAR}, #{certificationStatus,jdbcType=INTEGER}, #{sid,jdbcType=INTEGER}, 
+      #{idcardPicone,jdbcType=VARCHAR}, #{idcardPictwo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sm.model.PersonalQualification" >
+    insert into personal_qualification
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="certificateType != null" >
+        certificate_type,
+      </if>
+      <if test="realname != null" >
+        realname,
+      </if>
+      <if test="certificateNo != null" >
+        certificate_no,
+      </if>
+      <if test="certificationStatus != null" >
+        certification_status,
+      </if>
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="idcardPicone != null" >
+        idcard_picone,
+      </if>
+      <if test="idcardPictwo != null" >
+        idcard_pictwo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="certificateType != null" >
+        #{certificateType,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateNo != null" >
+        #{certificateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="certificationStatus != null" >
+        #{certificationStatus,jdbcType=INTEGER},
+      </if>
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="idcardPicone != null" >
+        #{idcardPicone,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardPictwo != null" >
+        #{idcardPictwo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sm.model.PersonalQualificationExample" resultType="java.lang.Integer" >
+    select count(*) from personal_qualification
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update personal_qualification
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.certificateType != null" >
+        certificate_type = #{record.certificateType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realname != null" >
+        realname = #{record.realname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certificateNo != null" >
+        certificate_no = #{record.certificateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certificationStatus != null" >
+        certification_status = #{record.certificationStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.sid != null" >
+        sid = #{record.sid,jdbcType=INTEGER},
+      </if>
+      <if test="record.idcardPicone != null" >
+        idcard_picone = #{record.idcardPicone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcardPictwo != null" >
+        idcard_pictwo = #{record.idcardPictwo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update personal_qualification
+    set id = #{record.id,jdbcType=INTEGER},
+      certificate_type = #{record.certificateType,jdbcType=VARCHAR},
+      realname = #{record.realname,jdbcType=VARCHAR},
+      certificate_no = #{record.certificateNo,jdbcType=VARCHAR},
+      certification_status = #{record.certificationStatus,jdbcType=INTEGER},
+      sid = #{record.sid,jdbcType=INTEGER},
+      idcard_picone = #{record.idcardPicone,jdbcType=VARCHAR},
+      idcard_pictwo = #{record.idcardPictwo,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="deleteCertificatePicture" parameterType="com.sm.model.SpecialQualification" >
+  update personal_qualification
+  set idcard_picone = #{idcardPicone,jdbcType=VARCHAR},
+      idcard_pictwo = #{idcardPictwo,jdbcType=VARCHAR}
+  where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sm.model.PersonalQualification" >
+    update personal_qualification
+    <set >
+      <if test="certificateType != null" >
+        certificate_type = #{certificateType,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        realname = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateNo != null" >
+        certificate_no = #{certificateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="certificationStatus != null" >
+        certification_status = #{certificationStatus,jdbcType=INTEGER},
+      </if>
+      <if test="sid != null" >
+        sid = #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="idcardPicone != null" >
+        idcard_picone = #{idcardPicone,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardPictwo != null" >
+        idcard_pictwo = #{idcardPictwo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sm.model.PersonalQualification" >
+    update personal_qualification
+    set certificate_type = #{certificateType,jdbcType=VARCHAR},
+      realname = #{realname,jdbcType=VARCHAR},
+      certificate_no = #{certificateNo,jdbcType=VARCHAR},
+      certification_status = #{certificationStatus,jdbcType=INTEGER},
+      sid = #{sid,jdbcType=INTEGER},
+      idcard_picone = #{idcardPicone,jdbcType=VARCHAR},
+      idcard_pictwo = #{idcardPictwo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

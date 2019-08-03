@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sm.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.sm.model.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="birth" jdbcType="VARCHAR" property="birth" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="headlink" jdbcType="VARCHAR" property="headlink" />
+    <result column="balance" jdbcType="VARCHAR" property="balance" />
+    <result column="home" jdbcType="VARCHAR" property="home" />
+    <result column="job" jdbcType="VARCHAR" property="job" />
+    <result column="credit" jdbcType="VARCHAR" property="credit" />
+    <result column="canjia_party" jdbcType="VARCHAR" property="canjiaParty" />
+    <result column="zuzhi_party" jdbcType="VARCHAR" property="zuzhiParty" />
+    <result column="real_name" jdbcType="INTEGER" property="realName" />
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="label" jdbcType="VARCHAR" property="label" />
+    <result column="aspiration_label" jdbcType="VARCHAR" property="aspirationLabel" />
+    <result column="register_time" jdbcType="TIMESTAMP" property="registerTime" />
+    <result column="weixin" jdbcType="VARCHAR" property="weixin" />
+    <result column="qq" jdbcType="VARCHAR" property="qq" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, phone, password, nickname, birth, age, sex, headlink, balance, home, job, credit, 
+    canjia_party, zuzhi_party, real_name, uid, label, aspiration_label, register_time, 
+    weixin, qq
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from `user`
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from `user`
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.sm.model.User">
+    insert into `user` (id, phone, password, 
+      nickname, birth, age, 
+      sex, headlink, balance, 
+      home, job, credit, 
+      canjia_party, zuzhi_party, real_name, 
+      uid, label, aspiration_label, 
+      register_time, weixin, qq
+      )
+    values (#{id,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{nickname,jdbcType=VARCHAR}, #{birth,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
+      #{sex,jdbcType=INTEGER}, #{headlink,jdbcType=VARCHAR}, #{balance,jdbcType=VARCHAR}, 
+      #{home,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR}, #{credit,jdbcType=VARCHAR}, 
+      #{canjiaParty,jdbcType=VARCHAR}, #{zuzhiParty,jdbcType=VARCHAR}, #{realName,jdbcType=INTEGER}, 
+      #{uid,jdbcType=VARCHAR}, #{label,jdbcType=VARCHAR}, #{aspirationLabel,jdbcType=VARCHAR}, 
+      #{registerTime,jdbcType=TIMESTAMP}, #{weixin,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sm.model.User">
+    insert into `user`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="birth != null">
+        birth,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="headlink != null">
+        headlink,
+      </if>
+      <if test="balance != null">
+        balance,
+      </if>
+      <if test="home != null">
+        home,
+      </if>
+      <if test="job != null">
+        job,
+      </if>
+      <if test="credit != null">
+        credit,
+      </if>
+      <if test="canjiaParty != null">
+        canjia_party,
+      </if>
+      <if test="zuzhiParty != null">
+        zuzhi_party,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="label != null">
+        label,
+      </if>
+      <if test="aspirationLabel != null">
+        aspiration_label,
+      </if>
+      <if test="registerTime != null">
+        register_time,
+      </if>
+      <if test="weixin != null">
+        weixin,
+      </if>
+      <if test="qq != null">
+        qq,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="birth != null">
+        #{birth,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="headlink != null">
+        #{headlink,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null">
+        #{balance,jdbcType=VARCHAR},
+      </if>
+      <if test="home != null">
+        #{home,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null">
+        #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="credit != null">
+        #{credit,jdbcType=VARCHAR},
+      </if>
+      <if test="canjiaParty != null">
+        #{canjiaParty,jdbcType=VARCHAR},
+      </if>
+      <if test="zuzhiParty != null">
+        #{zuzhiParty,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="label != null">
+        #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="aspirationLabel != null">
+        #{aspirationLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="registerTime != null">
+        #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="weixin != null">
+        #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        #{qq,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sm.model.User">
+    update `user`
+    <set>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="birth != null">
+        birth = #{birth,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="headlink != null">
+        headlink = #{headlink,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null">
+        balance = #{balance,jdbcType=VARCHAR},
+      </if>
+      <if test="home != null">
+        home = #{home,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null">
+        job = #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="credit != null">
+        credit = #{credit,jdbcType=VARCHAR},
+      </if>
+      <if test="canjiaParty != null">
+        canjia_party = #{canjiaParty,jdbcType=VARCHAR},
+      </if>
+      <if test="zuzhiParty != null">
+        zuzhi_party = #{zuzhiParty,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="label != null">
+        label = #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="aspirationLabel != null">
+        aspiration_label = #{aspirationLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="registerTime != null">
+        register_time = #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="weixin != null">
+        weixin = #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sm.model.User">
+    update `user`
+    set phone = #{phone,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      birth = #{birth,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=INTEGER},
+      headlink = #{headlink,jdbcType=VARCHAR},
+      balance = #{balance,jdbcType=VARCHAR},
+      home = #{home,jdbcType=VARCHAR},
+      job = #{job,jdbcType=VARCHAR},
+      credit = #{credit,jdbcType=VARCHAR},
+      canjia_party = #{canjiaParty,jdbcType=VARCHAR},
+      zuzhi_party = #{zuzhiParty,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=INTEGER},
+      uid = #{uid,jdbcType=VARCHAR},
+      label = #{label,jdbcType=VARCHAR},
+      aspiration_label = #{aspirationLabel,jdbcType=VARCHAR},
+      register_time = #{registerTime,jdbcType=TIMESTAMP},
+      weixin = #{weixin,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
