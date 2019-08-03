@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sm.dao.PackageMapper" >
+  <resultMap id="BaseResultMap" type="com.sm.model.Package" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="package_name" property="packageName" jdbcType="VARCHAR" />
+    <result column="package_status" property="packageStatus" jdbcType="INTEGER" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="priority" property="priority" jdbcType="VARCHAR" />
+    <result column="sale" property="sale" jdbcType="INTEGER" />
+    <result column="package_picture" property="packagePicture" jdbcType="VARCHAR" />
+    <result column="people_number" property="peopleNumber" jdbcType="INTEGER" />
+    <result column="current_stock" property="currentStock" jdbcType="INTEGER" />
+    <result column="max_stock" property="maxStock" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="package_category" property="packageCategory" jdbcType="INTEGER" />
+    <result column="package_sort" property="packageSort" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, sid, package_name, package_status, start_time, end_time, priority, sale, package_picture, 
+    people_number, current_stock, max_stock, price, package_category, package_sort
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sm.model.PackageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from package
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from package
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from package
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sm.model.PackageExample" >
+    delete from package
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sm.model.Package" >
+    insert into package (id, sid, package_name, 
+      package_status, start_time, end_time, 
+      priority, sale, package_picture, 
+      people_number, current_stock, max_stock, 
+      price, package_category, package_sort
+      )
+    values (#{id,jdbcType=INTEGER}, #{sid,jdbcType=INTEGER}, #{packageName,jdbcType=VARCHAR}, 
+      #{packageStatus,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{priority,jdbcType=VARCHAR}, #{sale,jdbcType=INTEGER}, #{packagePicture,jdbcType=VARCHAR}, 
+      #{peopleNumber,jdbcType=INTEGER}, #{currentStock,jdbcType=INTEGER}, #{maxStock,jdbcType=INTEGER}, 
+      #{price,jdbcType=DOUBLE}, #{packageCategory,jdbcType=INTEGER}, #{packageSort,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sm.model.Package" >
+    insert into package
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="packageName != null" >
+        package_name,
+      </if>
+      <if test="packageStatus != null" >
+        package_status,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="priority != null" >
+        priority,
+      </if>
+      <if test="sale != null" >
+        sale,
+      </if>
+      <if test="packagePicture != null" >
+        package_picture,
+      </if>
+      <if test="peopleNumber != null" >
+        people_number,
+      </if>
+      <if test="currentStock != null" >
+        current_stock,
+      </if>
+      <if test="maxStock != null" >
+        max_stock,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="packageCategory != null" >
+        package_category,
+      </if>
+      <if test="packageSort != null" >
+        package_sort,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="packageName != null" >
+        #{packageName,jdbcType=VARCHAR},
+      </if>
+      <if test="packageStatus != null" >
+        #{packageStatus,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="priority != null" >
+        #{priority,jdbcType=VARCHAR},
+      </if>
+      <if test="sale != null" >
+        #{sale,jdbcType=INTEGER},
+      </if>
+      <if test="packagePicture != null" >
+        #{packagePicture,jdbcType=VARCHAR},
+      </if>
+      <if test="peopleNumber != null" >
+        #{peopleNumber,jdbcType=INTEGER},
+      </if>
+      <if test="currentStock != null" >
+        #{currentStock,jdbcType=INTEGER},
+      </if>
+      <if test="maxStock != null" >
+        #{maxStock,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="packageCategory != null" >
+        #{packageCategory,jdbcType=INTEGER},
+      </if>
+      <if test="packageSort != null" >
+        #{packageSort,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sm.model.PackageExample" resultType="java.lang.Integer" >
+    select count(*) from package
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update package
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.sid != null" >
+        sid = #{record.sid,jdbcType=INTEGER},
+      </if>
+      <if test="record.packageName != null" >
+        package_name = #{record.packageName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.packageStatus != null" >
+        package_status = #{record.packageStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.startTime != null" >
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null" >
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.priority != null" >
+        priority = #{record.priority,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sale != null" >
+        sale = #{record.sale,jdbcType=INTEGER},
+      </if>
+      <if test="record.packagePicture != null" >
+        package_picture = #{record.packagePicture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.peopleNumber != null" >
+        people_number = #{record.peopleNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.currentStock != null" >
+        current_stock = #{record.currentStock,jdbcType=INTEGER},
+      </if>
+      <if test="record.maxStock != null" >
+        max_stock = #{record.maxStock,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DOUBLE},
+      </if>
+      <if test="record.packageCategory != null" >
+        package_category = #{record.packageCategory,jdbcType=INTEGER},
+      </if>
+      <if test="record.packageSort != null" >
+        package_sort = #{record.packageSort,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update package
+    set id = #{record.id,jdbcType=INTEGER},
+      sid = #{record.sid,jdbcType=INTEGER},
+      package_name = #{record.packageName,jdbcType=VARCHAR},
+      package_status = #{record.packageStatus,jdbcType=INTEGER},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      priority = #{record.priority,jdbcType=VARCHAR},
+      sale = #{record.sale,jdbcType=INTEGER},
+      package_picture = #{record.packagePicture,jdbcType=VARCHAR},
+      people_number = #{record.peopleNumber,jdbcType=INTEGER},
+      current_stock = #{record.currentStock,jdbcType=INTEGER},
+      max_stock = #{record.maxStock,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DOUBLE},
+      package_category = #{record.packageCategory,jdbcType=INTEGER},
+      package_sort = #{record.packageSort,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sm.model.Package" >
+    update package
+    <set >
+      <if test="sid != null" >
+        sid = #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="packageName != null" >
+        package_name = #{packageName,jdbcType=VARCHAR},
+      </if>
+      <if test="packageStatus != null" >
+        package_status = #{packageStatus,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="priority != null" >
+        priority = #{priority,jdbcType=VARCHAR},
+      </if>
+      <if test="sale != null" >
+        sale = #{sale,jdbcType=INTEGER},
+      </if>
+      <if test="packagePicture != null" >
+        package_picture = #{packagePicture,jdbcType=VARCHAR},
+      </if>
+      <if test="peopleNumber != null" >
+        people_number = #{peopleNumber,jdbcType=INTEGER},
+      </if>
+      <if test="currentStock != null" >
+        current_stock = #{currentStock,jdbcType=INTEGER},
+      </if>
+      <if test="maxStock != null" >
+        max_stock = #{maxStock,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="packageCategory != null" >
+        package_category = #{packageCategory,jdbcType=INTEGER},
+      </if>
+      <if test="packageSort != null" >
+        package_sort = #{packageSort,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sm.model.Package" >
+    update package
+    set sid = #{sid,jdbcType=INTEGER},
+      package_name = #{packageName,jdbcType=VARCHAR},
+      package_status = #{packageStatus,jdbcType=INTEGER},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      priority = #{priority,jdbcType=VARCHAR},
+      sale = #{sale,jdbcType=INTEGER},
+      package_picture = #{packagePicture,jdbcType=VARCHAR},
+      people_number = #{peopleNumber,jdbcType=INTEGER},
+      current_stock = #{currentStock,jdbcType=INTEGER},
+      max_stock = #{maxStock,jdbcType=INTEGER},
+      price = #{price,jdbcType=DOUBLE},
+      package_category = #{packageCategory,jdbcType=INTEGER},
+      package_sort = #{packageSort,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

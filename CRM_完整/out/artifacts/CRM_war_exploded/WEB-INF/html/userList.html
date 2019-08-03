@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--引用layui的样式-->
+    <link rel="stylesheet" type="text/css" href="layui/css/layui.css">
+</head>
+<body >
+
+<form class="layui-form" action="" lay-filter="searchForm" id="searchForm" style="margin-top: 15px">
+
+
+    <div class="layui-form-item layui-inline">
+
+            <label class="layui-form-label" style="width: 100px">客户名称</label>
+            <div class="layui-input-inline" style="width: 120px;">
+                <input type="text" name="custName" autocomplete="off" class="layui-input">
+            </div>
+
+    </div>
+    <div class="layui-form-item layui-inline">
+
+            <label class="layui-form-label" style="width: 100px">客户来源</label>
+            <div class="layui-input-inline" style="width: 120px;">
+                <select name="source" lay-verify="" id="source">
+                    <option value="">请选择</option>
+
+                </select>
+            </div>
+    </div>
+
+    <div class="layui-form-item layui-inline">
+
+            <label class="layui-form-label" style="width: 100px">客户行业</label>
+            <div class="layui-input-inline" style="width: 120px;">
+                <select name="industry" lay-verify="" id="industry">
+                    <option value="">请选择</option>
+
+                </select>
+            </div>
+
+
+    </div>
+
+    <div class="layui-form-item layui-inline">
+
+            <label class="layui-form-label" style="width: 100px;">客户级别</label>
+            <div class="layui-input-inline" style="width: 120px;">
+                <select name="level" lay-verify="" id="level">
+                    <option value="">请选择</option>
+
+                </select>
+            </div>
+
+    </div>
+
+    <div class="layui-form-item layui-inline">
+
+            <button class="layui-btn" lay-submit>查询</button>
+
+    </div>
+
+
+
+</form>
+
+
+<table id="userList" lay-filter="test"></table>
+
+
+<!--工具栏-->
+<script type="text/html" id="colToolBar">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+
+
+<!--引用layui脚本-->
+<script type="text/javascript" src="layui/layui.js"></script>
+
+
+<script type="text/javascript">
+    layui.use(['table','form','jquery'], function(){
+        var table = layui.table;
+        var form = layui.form;
+        var $ = layui.$;
+        //第一个实例
+        table.render({
+            elem: '#userList'
+            ,height: 'full-20'
+            ,url: 'api/customer/list' //数据接口
+            ,page: true //开启分页
+            ,cols: [[ //表头
+                {field: 'custId', title: 'ID', width:80, sort: true, fixed: 'left'}
+                ,{field: 'custName', title: '客户名称', width:120}
+                ,{field: 'custSource', title: '客户来源', width:120}
+                ,{field: 'custIndustry', title: '客户所属行业', width:150}
+                ,{field: 'custLevel', title: '客户级别', width: 177}
+                ,{field: 'custPhone', title: '固定电话', width: 200}
+                ,{field: 'custMobile', title: '手机',width:200}
+                ,{title: '操作',toolbar:'#colToolBar'}
+
+            ]]
+
+        });
+
+        /*监听table表格工具栏*/
+        table.on('tool(test)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+            if(layEvent === 'del'){ //删除
+                layer.confirm('真的删除行么', function(index){
+
+                    layer.close(index);
+                    //向服务端发送删除指令
+                    $.post("api/customer/delete/"+data.custId+"?r="+Math.random(),function (data) {
+                        if(data.status==200){
+                            obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                        }
+                    })
+                });
+            } else if(layEvent === 'edit'){ //编辑
+                //do something
+                var index = layui.layer.open({
+                    title : "编辑用户",
+                    type : 2,
+                    content : "userEdit",
+                    success : function(layero, index){
+                        //获取弹出框对象
+                        var body = layui.layer.getChildFrame('body', index);
+
+                        body.find(".custId").val(data.custId);  //登录名
+
+                        form.render();//渲染
+                    }
+                })
+                layui.layer.full(index);//将模态框全屏
+                window.sessionStorage.setItem("index",index);
+                //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+                $(window).on("resize",function(){
+                    layui.layer.full(window.sessionStorage.getItem("index"));
+                })
+
+                console.log(data);
+            }
+        });
+
+
+        /*加载选项初始数据*/
+        $.post("api/base/source",function (data) {
+            for(var idx in data){
+                /*var node = document.createElement("option");
+                node.value = data[idx].dictId;
+                node.appendChild(document.createTextNode(data[idx].dictItemName));
+                 document.getElementById('source').appendChild(node);
+                */
+                $("#source").append("<option value='"+data[idx].dictId+"'>"+data[idx].dictItemName+"</option>")
+
+            }
+            // 加载完数据后 重新渲染select
+            form.render('select');
+        });
+
+        $.post("api/base/industry",function (data) {
+            for(var idx in data){
+                $("#industry").append("<option value='"+data[idx].dictId+"'>"+data[idx].dictItemName+"</option>")
+            }
+            // 加载完数据后 重新渲染select
+            form.render('select');
+        });
+
+
+        $.post("api/base/level",function (data) {
+            for(var idx in data){
+                $("#level").append("<option value='"+data[idx].dictId+"'>"+data[idx].dictItemName+"</option>")
+            }
+            // 加载完数据后 重新渲染select
+            form.render('select');
+        });
+
+        /*监听查询表单的提交事件*/
+        form.on('submit(searchForm)', function(data){
+            var params = $("#searchForm").serialize();
+            console.log(params);
+            //根据条件进行查询并刷新数据表格
+            table.reload('userList', {
+                url: 'api/customer/list?'+params
+                ,where: {} //设定异步数据接口的额外参数
+                //,height: 300
+            });
+
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+
+
+
+
+
+    });
+</script>
+</body>
+</html>
