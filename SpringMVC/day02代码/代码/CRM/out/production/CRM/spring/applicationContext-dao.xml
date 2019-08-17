@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--加载外部属性配置文件-->
+    <context:property-placeholder location="classpath:jdbc.properties"></context:property-placeholder>
+    <!--数据源-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="url" value="${druid.url}"></property>
+        <property name="username" value="${druid.username}"></property>
+        <property name="password" value="${druid.password}"></property>
+        <property name="driverClassName" value="${druid.driverClassName}"></property>
+        <property name="initialSize" value="${druid.initialSize}"></property>
+        <property name="minIdle" value="${druid.minIdle}"></property>
+        <property name="maxActive" value="${druid.maxActive}"></property>
+    </bean>
+
+    <!--配置sqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--配置mybatis配置文件-->
+        <property name="configLocation" value="classpath:mybatis/sqlMapConfig.xml"></property>
+        <!--配置数据源对象-->
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!--配置mapper的代理对象
+    this.sqlSessionFactory.openSession().getMapper(UserMapper.class)
+    -->
+    <!--<bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        &lt;!&ndash;配置sqlSessionFactroy对象&ndash;&gt;
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+        &lt;!&ndash;配置接口&ndash;&gt;
+        <property name="mapperInterface" value="com.igeek.ssm.mapper.UserMapper"></property>
+
+    </bean>
+
+    <bean id="itemMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        &lt;!&ndash;配置sqlSessionFactroy对象&ndash;&gt;
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+        &lt;!&ndash;配置接口&ndash;&gt;
+        <property name="mapperInterface" value="com.igeek.ssm.mapper.ItemMapper"></property>
+
+    </bean>-->
+
+    <!--批量配置mapper接口:
+    通过mapper扫描器,扫描某个包下的所有mapper接口,批量加载配置
+    -->
+
+    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--设置需要扫描的包-->
+        <property name="basePackage" value="com.igeek.crm.mapper"></property>
+        <!--配置sqlSessionFactory对象-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+    </bean>
+
+
+
+</beans>

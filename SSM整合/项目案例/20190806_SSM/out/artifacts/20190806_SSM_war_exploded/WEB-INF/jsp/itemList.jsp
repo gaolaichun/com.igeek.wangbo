@@ -42,7 +42,7 @@
                 <td>${item.name}</td>
                 <td><fmt:formatNumber value="${item.price}" minFractionDigits="2"></fmt:formatNumber></td>
                 <td>${item.pic}</td>
-                <td><fmt:formatDate value="${item.createtime}" pattern="yyyy/MM/dd HH:mm:ss"></fmt:formatDate></td>
+                <td><fmt:formatDate value="${item.createtime}" pattern="yyyy年MM月dd号 HH:mm:ss"></fmt:formatDate></td>
                 <td>
                     <input type="button" value="删除">
                     <input type="button" value="编辑">

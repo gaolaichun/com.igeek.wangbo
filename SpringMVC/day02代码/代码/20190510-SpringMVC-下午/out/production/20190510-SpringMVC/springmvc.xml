@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/mvc
+        https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+    <!--扫描包 批量加载包下的组件
+    com.igeek.controller 扫描该包下的所有Controller注解
+    -->
+    <context:component-scan base-package="com.igeek.controller,com.igeek.api"></context:component-scan>
+
+    <!--开启注解驱动-->
+    <mvc:annotation-driven  />
+
+    <!--放行静态资源文件-->
+    <mvc:default-servlet-handler></mvc:default-servlet-handler>
+
+
+    <!--配置视图解析器
+    用于封装逻辑视图名的前缀以及后缀
+    在用户访问视图的时候,在逻辑视图名前后加上前缀以及后缀,得到物理视图名
+    -->
+    <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+
+    <!--配置全局异常处理器-->
+    <bean class="com.igeek.exception.MyExceptionHandler"></bean>
+
+
+    <!--配置文件上传解析器 id必须为CommonsMultipartResolver-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"></property>
+        <!--支持的最大的上传文件大小 单位是:byte  10MB = 10*1024*1024-->
+        <property name="maxUploadSize" value="10000000"></property>
+    </bean>
+
+
+</beans>

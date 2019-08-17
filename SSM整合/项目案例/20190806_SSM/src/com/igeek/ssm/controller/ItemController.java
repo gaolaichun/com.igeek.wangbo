@@ -19,12 +19,13 @@ import java.util.List;
  * \
  */
 @Controller
+@RequestMapping("/item")
 public class ItemController {
 
     @Autowired
     private IItemService iItemService;
 
-    @RequestMapping("/itemList")
+    @RequestMapping("/list")
     public String hello(Model model){
         List<Item> list = iItemService.list();
         System.out.println("list====="+list);
